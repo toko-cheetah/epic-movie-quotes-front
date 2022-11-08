@@ -1,6 +1,22 @@
+@import url("./fonts.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --gradient-over-image: linear-gradient(
+    to right,
+    #000000 0%,
+    rgba(0, 0, 0, 0) 55.21%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
+  --gradient-over-image-mobile: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
 
 *,
 *::before,
@@ -8,4 +24,20 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+header,
+.main,
+footer {
+  padding-left: 7.5%;
+  padding-right: 7.5%;
+}
+
+@media (min-width: 1280px) {
+  header,
+  .main,
+  footer {
+    padding-left: 3.5%;
+    padding-right: 3.5%;
+  }
 }
