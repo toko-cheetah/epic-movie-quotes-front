@@ -1,5 +1,9 @@
 <template>
   <main>
-    <h1>Movie Quotes</h1>
+    <LandingPage />
   </main>
 </template>
+
+<script setup>
+import LandingPage from "../components/LandingPage.vue";
+</script>
