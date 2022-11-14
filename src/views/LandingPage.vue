@@ -9,11 +9,10 @@
         {{ $t("landing_page.find_any_quote") }}
       </p>
 
-      <router-link to="#">
-        <RedBtn
-          class="py-[7px] xl:py-[9px] px-[13px] xl:px-[17px] text-base xl:text-xl"
-          >{{ $t("landing_page.get_started") }}</RedBtn
-        >
+      <router-link :to="{ name: 'sign_up' }">
+        <RedBtn class="xl:py-[9px] px-[13px] xl:px-[17px] xl:text-xl">
+          {{ $t("landing_page.get_started") }}
+        </RedBtn>
       </router-link>
     </div>
 
@@ -37,12 +36,14 @@
       movie="landing_page.the_lord_of_the_rings"
       year="2003"
     />
+
+    <RouterView />
   </div>
 </template>
 
 <script setup>
-import RedBtn from "./buttons/RedBtn.vue";
-import LandingQuotes from "./LandingQuotes.vue";
+import RedBtn from "../components/buttons/RedBtn.vue";
+import LandingQuotes from "../components/LandingQuotes.vue";
 </script>
 
 <style scoped>

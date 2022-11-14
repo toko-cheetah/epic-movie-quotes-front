@@ -2,7 +2,9 @@
   <BaseLayout>
     <TheHeader />
 
-    <RouterView />
+    <main>
+      <RouterView />
+    </main>
 
     <TheFooter />
   </BaseLayout>

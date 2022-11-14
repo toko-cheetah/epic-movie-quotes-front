@@ -6,6 +6,8 @@ import router from "./router";
 import { i18n } from "./config/vue-i18n/i18n";
 
 import "./assets/main.css";
+import "./config/vee-validate/messages";
+import "./config/vee-validate/rules";
 
 const app = createApp(App);
 

@@ -8,6 +8,8 @@ module.exports = {
         "dark-blue": "#11101A",
         "dark-cyan-blue": "#212529",
         "custom-red": "#E31221",
+        "custom-gray": "#6C757D",
+        "custom-blue": "#0D6EFD",
       },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
