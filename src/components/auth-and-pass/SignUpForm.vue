@@ -1,95 +1,118 @@
 <template>
   <BaseLayout>
     <TheHeading>{{ $t("auth.create_account") }}</TheHeading>
-    <GrayText>{{ $t("auth.start_journey") }}!</GrayText>
+    <p class="font-normal text-base text-custom-gray">
+      {{ $t("auth.start_journey") }}!
+    </p>
 
-    <VeeForm @submit="submit">
-      <TheLabel name="name" :required="true">{{ $t("auth.name") }}</TheLabel>
+    <Form class="mt-7 flex flex-col" @submit="submit">
+      <label name="name" class="font-normal text-base text-left mb-2">
+        {{ $t("auth.name") }}
+        <span class="text-[#DC3545]">*</span>
+      </label>
       <VeeField
         type="text"
         name="name"
-        v-model="signUpStore.signUpData.name"
+        @input="signUpData.name = $event.target.value"
         rules="required|min:3|max:15|lower_alpha_num"
-        :placeholder="$t('auth.at_least_3_max_15')"
+        :placeholder="$t('auth.min_max_and_lower_case', { min: 3, max: 15 })"
       />
-      <VeeError name="name" />
+      <ErrorMessage
+        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        name="name"
+      />
 
-      <TheLabel name="email" :required="true">{{ $t("auth.email") }}</TheLabel>
+      <label name="email" class="font-normal text-base text-left mb-2">
+        {{ $t("auth.email") }}
+        <span class="text-[#DC3545]">*</span>
+      </label>
       <VeeField
         type="email"
         name="email"
-        v-model="signUpStore.signUpData.email"
+        @input="signUpData.email = $event.target.value"
         rules="required|email"
         :placeholder="$t('auth.enter_email')"
       />
-      <VeeError name="email" />
+      <ErrorMessage
+        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        name="email"
+      />
 
-      <TheLabel name="password" :required="true">
+      <label name="password" class="font-normal text-base text-left mb-2">
         {{ $t("auth.password") }}
-      </TheLabel>
+        <span class="text-[#DC3545]">*</span>
+      </label>
       <VeeField
-        class="password"
         type="password"
         name="password"
-        v-model="signUpStore.signUpData.password"
+        :use-password-icon="true"
+        @input="signUpData.password = $event.target.value"
         rules="required|min:8|max:15|lower_alpha_num"
-        :placeholder="$t('auth.at_least_8_max_15')"
+        :placeholder="$t('auth.min_max_and_lower_case', { min: 8, max: 15 })"
       />
-      <VeeError name="password" />
+      <ErrorMessage
+        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        name="password"
+      />
 
-      <TheLabel name="confirm_password" :required="true">
+      <label
+        name="confirm_password"
+        class="font-normal text-base text-left mb-2"
+      >
         {{ $t("auth.confirm_password") }}
-      </TheLabel>
+        <span class="text-[#DC3545]">*</span>
+      </label>
       <VeeField
-        class="password"
         type="password"
         name="confirm_password"
+        :use-password-icon="true"
         rules="required|confirmed:@password"
         :placeholder="$t('auth.confirm_password')"
       />
-      <VeeError name="confirm_password" />
+      <ErrorMessage
+        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        name="confirm_password"
+      />
 
       <RedBtn class="mt-2 mb-4">{{ $t("landing_page.get_started") }}</RedBtn>
-    </VeeForm>
+    </Form>
 
-    <LinearBtn class="w-full">
-      <img src="/src/assets/icons/google.svg" class="inline-block mr-2" />
+    <LinearBtn class="relative w-full">
       {{ $t("auth.sign_up_with_google") }}
+
+      <GoogleIcon
+        class="absolute top-1/2 -translate-y-1/2"
+        :class="$i18n.locale === 'ka' ? 'left-10' : 'left-16'"
+      />
     </LinearBtn>
 
-    <BottomDiv>
-      <GrayText>{{ $t("auth.already_have_an_account") }}? &nbsp;</GrayText>
+    <div class="mt-8 flex justify-center">
+      <p class="font-normal text-base text-custom-gray">
+        {{ $t("auth.already_have_an_account") }}? &nbsp;
+      </p>
       <BlueLink>{{ $t("common.log_in") }}</BlueLink>
-    </BottomDiv>
+    </div>
   </BaseLayout>
 </template>
 
 <script setup>
-import GrayText from "./assets/GrayText.vue";
-import TheHeading from "./assets/TheHeading.vue";
-import BaseLayout from "./assets/BaseLayout.vue";
-import TheLabel from "../form/TheLabel.vue";
-import VeeField from "../form/VeeField.vue";
-import RedBtn from "../buttons/RedBtn.vue";
-import LinearBtn from "../buttons/LinearBtn.vue";
-import BottomDiv from "./assets/BottomDiv.vue";
-import BlueLink from "./assets/BlueLink.vue";
-import VeeForm from "../form/VeeForm.vue";
-import VeeError from "../form/VeeError.vue";
+import TheHeading from "@/components/auth-and-pass/assets/TheHeading.vue";
+import BaseLayout from "@/components/auth-and-pass/assets/BaseLayout.vue";
+import VeeField from "@/components/form/VeeField.vue";
+import RedBtn from "@/components/buttons/RedBtn.vue";
+import LinearBtn from "@/components/buttons/LinearBtn.vue";
+import BlueLink from "@/components/auth-and-pass/assets/BlueLink.vue";
+import GoogleIcon from "@/components/icons/GoogleIcon.vue";
+import { Form, ErrorMessage } from "vee-validate";
+import { reactive } from "vue";
 
-import { useSignUpStore } from "@/stores/sign-up.js";
-
-const signUpStore = useSignUpStore();
+const signUpData = reactive({
+  name: null,
+  email: null,
+  password: null,
+});
 
 function submit() {
-  console.log(signUpStore.signUpData);
+  console.log(signUpData);
 }
 </script>
-
-<style>
-.password {
-  background-image: url("/src/assets/icons/password-icon.svg");
-  background-repeat: no-repeat;
-  background-position: right 7px center;
-}
-</style>

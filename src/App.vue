@@ -1,5 +1,10 @@
 <template>
-  <BaseLayout>
+  <div
+    class="m-auto font-normal"
+    :class="
+      $i18n.locale === 'ka' ? 'font-helvetica-neue-lt-geo' : 'font-montserrat'
+    "
+  >
     <TheHeader />
 
     <main>
@@ -7,12 +12,11 @@
     </main>
 
     <TheFooter />
-  </BaseLayout>
+  </div>
 </template>
 
 <script setup>
 import { RouterView } from "vue-router";
-import BaseLayout from "./components/BaseLayout.vue";
-import TheHeader from "./components/TheHeader.vue";
-import TheFooter from "./components/TheFooter.vue";
+import TheHeader from "@/components/TheHeader.vue";
+import TheFooter from "@/components/TheFooter.vue";
 </script>
