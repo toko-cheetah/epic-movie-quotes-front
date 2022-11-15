@@ -1,0 +1,51 @@
+<template>
+  <div class="relative">
+    <Field
+      class="w-full rounded-[0.25rem] py-[0.438rem] px-[0.813rem] mb-4 font-normal text-base bg-[#CED4DA] text-dark-cyan-blue placeholder-[#6C757D]"
+      :class="useFieldError(name).value ? 'border border-custom-red' : ''"
+      :type="type"
+      :name="name"
+      :rules="rules"
+      :placeholder="placeholder"
+    />
+
+    <InvalidIcon
+      v-if="useFieldError(name).value"
+      class="absolute top-3 right-1"
+    />
+
+    <PasswordIcon
+      v-if="usePasswordIcon && !useFieldError(name).value"
+      class="absolute top-3 right-1"
+    />
+  </div>
+</template>
+
+<script setup>
+import { Field, useFieldError } from "vee-validate";
+import InvalidIcon from "@/components/icons/InvalidIcon.vue";
+import PasswordIcon from "@/components/icons/PasswordIcon.vue";
+
+defineProps({
+  type: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  rules: {
+    type: [String, Object],
+    required: false,
+  },
+  placeholder: {
+    type: String,
+    required: false,
+  },
+  usePasswordIcon: {
+    type: Boolean,
+    required: false,
+  },
+});
+</script>
