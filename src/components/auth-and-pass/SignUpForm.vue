@@ -56,22 +56,23 @@
       />
 
       <label
-        name="confirm_password"
+        name="password_confirmation"
         class="font-normal text-base text-left mb-2"
       >
-        {{ $t("auth.confirm_password") }}
+        {{ $t("auth.password_confirmation") }}
         <span class="text-[#DC3545]">*</span>
       </label>
       <VeeField
         type="password"
-        name="confirm_password"
+        name="password_confirmation"
         :use-password-icon="true"
+        @input="signUpData.password_confirmation = $event.target.value"
         rules="required|confirmed:@password"
-        :placeholder="$t('auth.confirm_password')"
+        :placeholder="$t('auth.password_confirmation')"
       />
       <ErrorMessage
         class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
-        name="confirm_password"
+        name="password_confirmation"
       />
 
       <RedBtn class="mt-2 mb-4">{{ $t("landing_page.get_started") }}</RedBtn>
@@ -96,23 +97,28 @@
 </template>
 
 <script setup>
-import TheHeading from "@/components/auth-and-pass/assets/TheHeading.vue";
-import BaseLayout from "@/components/auth-and-pass/assets/BaseLayout.vue";
+import TheHeading from "@/components/auth-and-pass/TheHeading.vue";
+import BaseLayout from "@/components/auth-and-pass/BaseLayout.vue";
 import VeeField from "@/components/form/VeeField.vue";
 import RedBtn from "@/components/buttons/RedBtn.vue";
 import LinearBtn from "@/components/buttons/LinearBtn.vue";
-import BlueLink from "@/components/auth-and-pass/assets/BlueLink.vue";
+import BlueLink from "@/components/auth-and-pass/BlueLink.vue";
 import GoogleIcon from "@/components/icons/GoogleIcon.vue";
 import { Form, ErrorMessage } from "vee-validate";
 import { reactive } from "vue";
+import axios from "@/config/axios/index.js";
 
 const signUpData = reactive({
   name: null,
   email: null,
   password: null,
+  password_confirmation: null,
 });
 
 function submit() {
-  console.log(signUpData);
+  axios
+    .post("/register", signUpData)
+    .then((res) => alert(res.data))
+    .catch((err) => alert(err.response.data.message));
 }
 </script>

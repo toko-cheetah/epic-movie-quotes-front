@@ -12,7 +12,7 @@ configure({
           "The {field} must contain only lowercase Latin characters and numbers",
       },
       names: {
-        confirm_password: "confirm password",
+        password_confirmation: "confirm password",
       },
     },
     ka: {
@@ -26,7 +26,7 @@ configure({
         name: "სახელი",
         email: "ელ-ფოსტა",
         password: "პაროლი",
-        confirm_password: "პაროლის გამეორება",
+        password_confirmation: "პაროლის გამეორება",
       },
     },
   }),
