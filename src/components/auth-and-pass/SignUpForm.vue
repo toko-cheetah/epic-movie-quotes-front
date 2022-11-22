@@ -126,7 +126,12 @@ const signUpData = reactive({
 function submit() {
   axios
     .post("/register", signUpData)
-    .then(() => router.push({ name: "verification_notice" }))
+    .then(() =>
+      router.push({
+        name: "verification_notice",
+        query: { email: signUpData.email },
+      })
+    )
     .catch((err) => err && alert(err.response.data.message));
 }
 </script>
