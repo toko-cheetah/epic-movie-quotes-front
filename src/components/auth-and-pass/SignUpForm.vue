@@ -78,14 +78,16 @@
       <RedBtn class="mt-2 mb-4">{{ $t("landing_page.get_started") }}</RedBtn>
     </Form>
 
-    <LinearBtn class="relative w-full">
-      {{ $t("auth.sign_up_with_google") }}
+    <a :href="googleAuthUrl">
+      <LinearBtn class="relative w-full">
+        {{ $t("auth.sign_up_with_google") }}
 
-      <GoogleIcon
-        class="absolute top-1/2 -translate-y-1/2"
-        :class="$i18n.locale === 'ka' ? 'left-10' : 'left-16'"
-      />
-    </LinearBtn>
+        <GoogleIcon
+          class="absolute top-1/2 -translate-y-1/2"
+          :class="$i18n.locale === 'ka' ? 'left-10' : 'left-16'"
+        />
+      </LinearBtn>
+    </a>
 
     <div class="mt-8 flex justify-center">
       <p class="font-normal text-base text-custom-gray">
@@ -106,7 +108,13 @@ import BlueLink from "@/components/auth-and-pass/BlueLink.vue";
 import GoogleIcon from "@/components/icons/GoogleIcon.vue";
 import { Form, ErrorMessage } from "vee-validate";
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
 import axios from "@/config/axios/index.js";
+
+const router = useRouter();
+
+const googleAuthUrl =
+  import.meta.env.VITE_BACKEND_BASE_URL + "auth/google/redirect";
 
 const signUpData = reactive({
   name: null,
@@ -118,7 +126,7 @@ const signUpData = reactive({
 function submit() {
   axios
     .post("/register", signUpData)
-    .then((res) => alert(res.data))
-    .catch((err) => alert(err.response.data.message));
+    .then(() => router.push({ name: "verification_notice" }))
+    .catch((err) => err && alert(err.response.data.message));
 }
 </script>
