@@ -93,18 +93,21 @@
       <p class="font-normal text-base text-custom-gray">
         {{ $t("auth.already_have_an_account") }}? &nbsp;
       </p>
-      <BlueLink>{{ $t("common.log_in") }}</BlueLink>
+
+      <router-link :to="{ name: 'login' }">
+        <BlueLink>{{ $t("common.log_in") }}</BlueLink>
+      </router-link>
     </div>
   </BaseLayout>
 </template>
 
 <script setup>
-import TheHeading from "@/components/auth-and-pass/TheHeading.vue";
-import BaseLayout from "@/components/auth-and-pass/BaseLayout.vue";
+import TheHeading from "@/components/LandingPage/TheHeading.vue";
+import BaseLayout from "@/components/LandingPage/BaseLayout.vue";
 import VeeField from "@/components/form/VeeField.vue";
 import RedBtn from "@/components/buttons/RedBtn.vue";
 import LinearBtn from "@/components/buttons/LinearBtn.vue";
-import BlueLink from "@/components/auth-and-pass/BlueLink.vue";
+import BlueLink from "@/components/LandingPage/BlueLink.vue";
 import GoogleIcon from "@/components/icons/GoogleIcon.vue";
 import { Form, ErrorMessage } from "vee-validate";
 import { reactive } from "vue";
@@ -132,6 +135,6 @@ function submit() {
         query: { email: signUpData.email },
       })
     )
-    .catch((err) => err && alert(err.response.data.message));
+    .catch((err) => alert(err.response.data.message));
 }
 </script>

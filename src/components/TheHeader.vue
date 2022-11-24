@@ -22,7 +22,7 @@
         </RedBtn>
       </router-link>
 
-      <router-link to="#">
+      <router-link :to="{ name: 'login' }">
         <LinearBtn class="xl:py-2">{{ $t("common.log_in") }}</LinearBtn>
       </router-link>
     </div>
