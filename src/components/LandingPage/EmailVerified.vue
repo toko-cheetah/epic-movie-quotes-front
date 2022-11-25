@@ -1,7 +1,7 @@
 <template>
   <BaseLayout v-if="showPage">
     <div class="flex flex-col items-center py-20">
-      <TaskFilled />
+      <TaskFilledIcon />
 
       <TheHeading class="mt-4 mb-6">{{ $t("auth.thank_you") }}!</TheHeading>
 
@@ -17,9 +17,9 @@
 </template>
 
 <script setup>
-import BaseLayout from "@/components/auth-and-pass/BaseLayout.vue";
-import TaskFilled from "@/components/icons/TaskFilled.vue";
-import TheHeading from "@/components/auth-and-pass/TheHeading.vue";
+import BaseLayout from "@/components/LandingPage/BaseLayout.vue";
+import TaskFilledIcon from "@/components/icons/TaskFilledIcon.vue";
+import TheHeading from "@/components/LandingPage/TheHeading.vue";
 import RedBtn from "@/components/buttons/RedBtn.vue";
 import axios from "@/config/axios/index.js";
 import { onMounted, ref } from "vue";

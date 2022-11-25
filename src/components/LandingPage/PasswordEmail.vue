@@ -1,25 +1,33 @@
 <template>
   <BaseLayout>
     <div class="flex flex-col items-center py-20">
-      <SendCheckFill />
+      <SendCheckFillIcon />
 
-      <TheHeading class="mt-4 mb-6">{{ $t("auth.thank_you") }}!</TheHeading>
+      <TheHeading class="mt-4 mb-6">
+        {{ $t("auth.check_your_email") }}
+      </TheHeading>
 
       <p class="mb-8 font-normal text-base">
-        {{ $t("auth.please_check_your_email") }}.
+        {{ $t("auth.We_sent_password_recover_email") }}.
       </p>
 
       <a :href="'https://www.' + userEmailEnding" target="_blank">
         <RedBtn class="px-10">{{ $t("auth.go_to_my_email") }}</RedBtn>
       </a>
+
+      <router-link :to="{ name: 'home' }">
+        <p class="font-normal text-base text-custom-gray mt-8 ml-3">
+          {{ $t("auth.i_confirm_later") }}
+        </p>
+      </router-link>
     </div>
   </BaseLayout>
 </template>
 
 <script setup>
-import BaseLayout from "@/components/auth-and-pass/BaseLayout.vue";
-import SendCheckFill from "@/components/icons/SendCheckFill.vue";
-import TheHeading from "@/components/auth-and-pass/TheHeading.vue";
+import BaseLayout from "@/components/LandingPage/BaseLayout.vue";
+import SendCheckFillIcon from "@/components/icons/SendCheckFillIcon.vue";
+import TheHeading from "@/components/LandingPage/TheHeading.vue";
 import RedBtn from "@/components/buttons/RedBtn.vue";
 import { useRoute } from "vue-router";
 
