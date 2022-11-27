@@ -22,9 +22,13 @@
         </RedBtn>
       </router-link>
 
-      <router-link :to="{ name: 'login' }">
+      <router-link :to="{ name: 'login' }" v-if="!authStore.authenticated">
         <LinearBtn class="xl:py-2">{{ $t("common.log_in") }}</LinearBtn>
       </router-link>
+
+      <LinearBtn class="xl:py-2" v-if="authStore.authenticated" @click="logout">
+        {{ $t("common.log_out") }}
+      </LinearBtn>
     </div>
   </header>
 </template>
@@ -34,4 +38,20 @@ import LinearBtn from "@/components/buttons/LinearBtn.vue";
 import RedBtn from "@/components/buttons/RedBtn.vue";
 import { setLocale } from "@vee-validate/i18n";
 import DropDownIcon from "@/components/icons/DropDownIcon.vue";
+import axios from "@/config/axios/index.js";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth.js";
+
+const router = useRouter();
+const authStore = useAuthStore();
+
+function logout() {
+  axios
+    .get("/logout")
+    .then(
+      () => (authStore.authenticated = false),
+      router.push({ name: "landing_page" })
+    )
+    .catch((err) => alert(err.response.data.message));
+}
 </script>
