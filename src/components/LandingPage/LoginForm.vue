@@ -1,10 +1,69 @@
 <template>
   <BaseLayout>
-    <h1>Login</h1>
+    <TheHeading>{{ $t("auth.log_in_to_your_account") }}</TheHeading>
+    <p class="font-normal text-base text-custom-gray">
+      {{ $t("auth.welcome_please_enter_details") }}.
+    </p>
 
-    <router-link :to="{ name: 'password_request' }">
-      <BlueLink>{{ $t("auth.forgot_password") }}?</BlueLink>
-    </router-link>
+    <Form class="mt-7 flex flex-col" @submit="submit">
+      <label name="name" class="font-normal text-base text-left mb-2">
+        {{ $t("auth.name") }} / {{ $t("auth.email") }}
+        <span class="text-[#DC3545]">*</span>
+      </label>
+      <VeeField
+        type="text"
+        name="name"
+        @input="loginData.name = $event.target.value"
+        rules="required|min:3"
+        :placeholder="$t('auth.name') + ' / ' + $t('auth.email')"
+      />
+      <ErrorMessage
+        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        name="name"
+      />
+
+      <label name="password" class="font-normal text-base text-left mb-2">
+        {{ $t("auth.password") }}
+        <span class="text-[#DC3545]">*</span>
+      </label>
+      <VeeField
+        type="password"
+        name="password"
+        :use-password-icon="true"
+        @input="loginData.password = $event.target.value"
+        rules="required"
+        :placeholder="$t('auth.password')"
+      />
+      <ErrorMessage
+        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        name="password"
+      />
+
+      <div class="flex justify-between">
+        <label name="remember" class="font-normal text-base text-left mb-2">
+          <input
+            type="checkbox"
+            name="remember"
+            @click="loginData.remember = $event.target.checked ? '1' : null"
+          />
+          {{ $t("auth.remember_me") }}
+        </label>
+
+        <router-link :to="{ name: 'password_request' }">
+          <BlueLink>{{ $t("auth.forgot_password") }}?</BlueLink>
+        </router-link>
+      </div>
+
+      <RedBtn class="mt-2 mb-4">{{ $t("common.log_in") }}</RedBtn>
+    </Form>
+
+    <a :href="authGoogleUrl">
+      <LinearBtn class="relative w-full">
+        {{ $t("auth.log_in_with_Google") }}
+
+        <GoogleIcon class="absolute top-1/2 -translate-y-1/2 left-20" />
+      </LinearBtn>
+    </a>
 
     <div class="mt-8 flex justify-center">
       <p class="font-normal text-base text-custom-gray">
@@ -20,5 +79,34 @@
 
 <script setup>
 import BaseLayout from "@/components/LandingPage/BaseLayout.vue";
+import TheHeading from "@/components/LandingPage/TheHeading.vue";
 import BlueLink from "@/components/LandingPage/BlueLink.vue";
+import VeeField from "@/components/form/VeeField.vue";
+import RedBtn from "@/components/buttons/RedBtn.vue";
+import LinearBtn from "@/components/buttons/LinearBtn.vue";
+import GoogleIcon from "@/components/icons/GoogleIcon.vue";
+import axios from "@/config/axios/index.js";
+import { Form, ErrorMessage } from "vee-validate";
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth.js";
+
+const router = useRouter();
+const authStore = useAuthStore();
+
+const authGoogleUrl =
+  import.meta.env.VITE_BACKEND_BASE_URL + "api/auth/google/redirect";
+
+const loginData = reactive({
+  name: null,
+  password: null,
+  remember: null,
+});
+
+function submit() {
+  axios
+    .post("/login", loginData)
+    .then(() => router.push({ name: "home" }), (authStore.authenticated = true))
+    .catch((err) => alert(err.response.data));
+}
 </script>

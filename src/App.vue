@@ -5,13 +5,13 @@
       $i18n.locale === 'ka' ? 'font-helvetica-neue-lt-geo' : 'font-montserrat'
     "
   >
-    <TheHeader />
+    <TheHeader v-if="$route.name !== 'forbidden'" />
 
     <main>
       <RouterView />
     </main>
 
-    <TheFooter />
+    <TheFooter v-if="$route.name !== 'forbidden'" />
   </div>
 </template>
 

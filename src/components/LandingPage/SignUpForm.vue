@@ -78,7 +78,7 @@
       <RedBtn class="mt-2 mb-4">{{ $t("landing_page.get_started") }}</RedBtn>
     </Form>
 
-    <a :href="googleAuthUrl">
+    <a :href="authGoogleUrl">
       <LinearBtn class="relative w-full">
         {{ $t("auth.sign_up_with_google") }}
 
@@ -116,8 +116,8 @@ import axios from "@/config/axios/index.js";
 
 const router = useRouter();
 
-const googleAuthUrl =
-  import.meta.env.VITE_BACKEND_BASE_URL + "auth/google/redirect";
+const authGoogleUrl =
+  import.meta.env.VITE_BACKEND_BASE_URL + "api/auth/google/redirect";
 
 const signUpData = reactive({
   name: null,

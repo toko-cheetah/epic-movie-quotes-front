@@ -4,11 +4,19 @@ import LandingPageView from "@/views/LandingPageView.vue";
 import SignUpForm from "@/components/LandingPage/SignUpForm.vue";
 import EmailVerificationNotice from "@/components/LandingPage/EmailVerificationNotice.vue";
 import EmailVerified from "@/components/LandingPage/EmailVerified.vue";
+import AuthGoogleView from "@/views/AuthGoogleView.vue";
 import LoginForm from "@/components/LandingPage/LoginForm.vue";
 import PasswordRequest from "@/components/LandingPage/PasswordRequest.vue";
 import PasswordEmail from "@/components/LandingPage/PasswordEmail.vue";
 import PasswordReset from "@/components/LandingPage/PasswordReset.vue";
 import PasswordUpdate from "@/components/LandingPage/PasswordUpdate.vue";
+import ForbiddenView from "@/views/ForbiddenView.vue";
+
+import isAuthenticated from "@/router/guards.js";
+import axios from "axios";
+import { useAuthStore } from "@/stores/auth.js";
+
+axios.defaults.withCredentials = true;
 
 const router = createRouter({
   history: createWebHistory(),
@@ -17,7 +25,7 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
-      redirect: { name: "landing_page" },
+      beforeEnter: isAuthenticated,
     },
     {
       path: "/",
@@ -66,7 +74,31 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: "/auth/google/callback",
+      name: "auth_google",
+      component: AuthGoogleView,
+    },
+    {
+      path: "/401",
+      name: "forbidden",
+      component: ForbiddenView,
+    },
   ],
+});
+
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore();
+
+  if (authStore.authenticated === null) {
+    try {
+      await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}api/me`);
+      authStore.authenticated = true;
+    } catch (err) {
+      authStore.authenticated = false;
+    }
+  }
+  return next();
 });
 
 export default router;
