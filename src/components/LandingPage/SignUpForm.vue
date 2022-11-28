@@ -78,16 +78,14 @@
       <RedBtn class="mt-2 mb-4">{{ $t("landing_page.get_started") }}</RedBtn>
     </Form>
 
-    <a :href="authGoogleUrl">
-      <LinearBtn class="relative w-full">
-        {{ $t("auth.sign_up_with_google") }}
+    <LinearBtn class="relative w-full" @click="authGoogleRedirect">
+      {{ $t("auth.sign_up_with_google") }}
 
-        <GoogleIcon
-          class="absolute top-1/2 -translate-y-1/2"
-          :class="$i18n.locale === 'ka' ? 'left-10' : 'left-16'"
-        />
-      </LinearBtn>
-    </a>
+      <GoogleIcon
+        class="absolute top-1/2 -translate-y-1/2"
+        :class="$i18n.locale === 'ka' ? 'left-10' : 'left-16'"
+      />
+    </LinearBtn>
 
     <div class="mt-8 flex justify-center">
       <p class="font-normal text-base text-custom-gray">
@@ -116,9 +114,6 @@ import axios from "@/config/axios/index.js";
 
 const router = useRouter();
 
-const authGoogleUrl =
-  import.meta.env.VITE_BACKEND_BASE_URL + "api/auth/google/redirect";
-
 const signUpData = reactive({
   name: null,
   email: null,
@@ -135,6 +130,13 @@ function submit() {
         query: { email: signUpData.email },
       })
     )
+    .catch((err) => alert(err.response.data.message));
+}
+
+function authGoogleRedirect() {
+  axios
+    .get("/auth/google/redirect")
+    .then((res) => (window.location.href = res.data))
     .catch((err) => alert(err.response.data.message));
 }
 </script>
