@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-screen h-screen px-[8%] flex flex-col justify-center items-center text-center bg-gradient-to-b from-[#181623] via-[#191725] to-[#0D0B14] text-white"
+    class="w-screen h-screen px-[8%] flex flex-col justify-center items-center text-center bg-custom-dark-gradient text-white"
   >
     <GandolfIcon />
 

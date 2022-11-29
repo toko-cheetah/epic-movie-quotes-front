@@ -7,7 +7,9 @@
   >
     <TheHeader v-if="$route.name !== 'forbidden'" />
 
-    <main>
+    <main
+      class="min-h-screen bg-custom-dark-gradient text-white text-base xl:text-xl"
+    >
       <RouterView />
     </main>
 

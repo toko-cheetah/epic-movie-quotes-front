@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="h-screen bg-gradient-to-b from-[#181623] via-[#191725] to-[#0D0B14]"
-  ></div>
+  <div></div>
 </template>
 
 <script setup>
