@@ -11,6 +11,7 @@ import PasswordEmail from "@/components/LandingPage/PasswordEmail.vue";
 import PasswordReset from "@/components/LandingPage/PasswordReset.vue";
 import PasswordUpdate from "@/components/LandingPage/PasswordUpdate.vue";
 import ForbiddenView from "@/views/ForbiddenView.vue";
+import ProfileView from "@/views/ProfileView.vue";
 
 import isAuthenticated from "@/router/guards.js";
 import axios from "axios";
@@ -78,6 +79,11 @@ const router = createRouter({
       path: "/auth/google/callback",
       name: "auth_google",
       component: AuthGoogleView,
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: ProfileView,
     },
     {
       path: "/401",

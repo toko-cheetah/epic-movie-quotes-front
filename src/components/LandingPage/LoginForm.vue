@@ -57,13 +57,11 @@
       <RedBtn class="mt-2 mb-4">{{ $t("common.log_in") }}</RedBtn>
     </Form>
 
-    <a :href="authGoogleUrl">
-      <LinearBtn class="relative w-full">
-        {{ $t("auth.log_in_with_Google") }}
+    <LinearBtn class="relative w-full" @click="authGoogleRedirect">
+      {{ $t("auth.log_in_with_Google") }}
 
-        <GoogleIcon class="absolute top-1/2 -translate-y-1/2 left-20" />
-      </LinearBtn>
-    </a>
+      <GoogleIcon class="absolute top-1/2 -translate-y-1/2 left-20" />
+    </LinearBtn>
 
     <div class="mt-8 flex justify-center">
       <p class="font-normal text-base text-custom-gray">
@@ -94,9 +92,6 @@ import { useAuthStore } from "@/stores/auth.js";
 const router = useRouter();
 const authStore = useAuthStore();
 
-const authGoogleUrl =
-  import.meta.env.VITE_BACKEND_BASE_URL + "api/auth/google/redirect";
-
 const loginData = reactive({
   name: null,
   password: null,
@@ -108,5 +103,12 @@ function submit() {
     .post("/login", loginData)
     .then(() => router.push({ name: "home" }), (authStore.authenticated = true))
     .catch((err) => alert(err.response.data));
+}
+
+function authGoogleRedirect() {
+  axios
+    .get("/auth/google/redirect")
+    .then((res) => (window.location.href = res.data))
+    .catch((err) => alert(err.response.data.message));
 }
 </script>
