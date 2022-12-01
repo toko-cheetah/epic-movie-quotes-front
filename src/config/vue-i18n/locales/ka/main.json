@@ -3,5 +3,21 @@
   "search_by": "ძებნა",
   "edit_your_profile": "პროფილის რედაქტირება",
   "news_feed": "ნიუს ფიდი",
-  "list_of_movies": "ჩემი ფილმები"
+  "list_of_movies": "ჩემი ფილმები",
+  "my_profile": "პროფილი",
+  "upload_new_photo": "ატვირთე ფოტო",
+  "are_you_sure_to_make_changes": "დარწმუნებული ხარ, რომ შეიტან ცვლილებებს",
+  "changes_updated_successfully": "ცვლილებები წარმატებით განახლდა",
+  "primary": "ძირითადი",
+  "make_this": "გახადე ეს",
+  "add_new_email": "დაამატე ახალი ელ-ფოსტა",
+  "new_email_added_successfully": "ახალი ელ-ფოსტა წარმატებით დაემატა",
+  "please_check_email_to_verify": "გთხოვ, შეამოწმო ელ-ფოსტა ახალი მისამართის დასადასტურებლად",
+  "not_verified": "არ არის ვერიფიცირებული",
+  "primary_email_changed_successfully": "ძირითადი ელ-ფოსტა წარმატებით შეიცვალა",
+  "name_changed_successfully": "სახელი წარმატებით შეიცვალა",
+  "new_password_updated_successfully": "ახალი პაროლი წარმატებით განახლდა",
+  "passwords_should_contain": "პაროლი უნდა შეიცავდეს",
+  "min_or_more_characters": "{min} ან მეტ სიმბოლოს",
+  "num_lowercase_character": "{num} დაბალი რეგისტრის ასოს"
 }

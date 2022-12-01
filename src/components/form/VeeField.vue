@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <Field
-      class="w-full rounded-[0.25rem] py-[0.438rem] px-[0.813rem] mb-4 font-normal text-base bg-[#CED4DA] text-dark-cyan-blue placeholder-[#6C757D]"
+      class="readonly w-full rounded-[0.25rem] py-[0.438rem] px-[0.813rem] mb-4 font-normal text-base bg-[#CED4DA] text-dark-cyan-blue placeholder-[#6C757D]"
       :class="useFieldError(name).value ? 'border border-custom-red' : ''"
       :type="type"
       :name="name"
