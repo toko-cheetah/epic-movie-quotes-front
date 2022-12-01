@@ -15,7 +15,7 @@
       </div>
 
       <div class="ml-4">
-        <p v-if="user">{{ user.name }}</p>
+        <p v-if="userStore.user">{{ userStore.user.name }}</p>
         <p class="text-sm xl:text-base text-custom-gray">
           {{ $t("main.edit_your_profile") }}
         </p>
@@ -56,17 +56,17 @@ import CameraReelsIcon from "@/components/icons/CameraReelsIcon.vue";
 import LeftArrowIcon from "@/components/icons/LeftArrowIcon.vue";
 
 import axios from "@/config/axios/index.js";
+import { useUserStore } from "@/stores/user.js";
 import { useRoute } from "vue-router";
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 
 const route = useRoute();
-
-const user = ref(null);
+const userStore = useUserStore();
 
 onMounted(() => {
   axios
     .get("/me")
-    .then((res) => (user.value = res.data.user))
+    .then((res) => (userStore.user = res.data.user))
     .catch((err) => alert(err.response.data.message));
 });
 

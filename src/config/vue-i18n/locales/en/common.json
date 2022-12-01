@@ -2,5 +2,10 @@
   "movie_quotes": "Movie quotes",
   "log_in": "Log in",
   "log_out": "Log out",
-  "sign_up": "Sign up"
+  "sign_up": "Sign up",
+  "edit": "Edit",
+  "add": "Add",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "remove": "Remove"
 }
