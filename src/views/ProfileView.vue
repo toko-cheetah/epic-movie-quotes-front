@@ -13,12 +13,22 @@
     >
       <div class="xl:-mt-28 mb-10 text-center">
         <div
-          class="w-48 h-48 m-auto mb-2 bg-slate-400 rounded-full flex justify-center items-center"
+          class="w-48 h-48 m-auto mb-2 bg-slate-400 rounded-full flex justify-center items-center overflow-hidden"
         >
-          <img src="@/assets/images/default-profile-photo.png" alt="" />
+          <img v-if="hasAvatar()" :src="userStore.user.avatar" alt="" />
+          <img v-else src="@/assets/images/default-profile-photo.png" alt="" />
         </div>
 
-        <p class="cursor-pointer">{{ $t("main.upload_new_photo") }}</p>
+        <p class="cursor-pointer" @click="clickInput('avatar')">
+          {{ $t("main.upload_new_photo") }}
+        </p>
+        <input
+          type="file"
+          name="avatar"
+          id="avatar"
+          @change="sendAvatar"
+          hidden
+        />
       </div>
 
       <div>
@@ -95,6 +105,7 @@ import CheckCircleFillIcon from "@/components/icons/CheckCircleFillIcon.vue";
 import LinearBtn from "@/components/buttons/LinearBtn.vue";
 import PlusIcon from "@/components/icons/PlusIcon.vue";
 import VeeField from "@/components/form/VeeField.vue";
+import axios from "@/config/axios/index.js";
 import { useUserStore } from "@/stores/user.js";
 import { useForm } from "vee-validate";
 import { onMounted } from "vue";
@@ -113,4 +124,26 @@ onMounted(() => {
     .querySelectorAll(".readonly")
     .forEach((el) => el.setAttribute("readonly", true));
 });
+
+function sendAvatar(e) {
+  const formData = new FormData();
+  formData.append("avatar", e.target.files[0]);
+
+  axios
+    .post("/add-avatar", formData)
+    .then((res) => (userStore.user.avatar = res.data.avatar))
+    .catch((err) => alert(err.response.data.message));
+}
+
+function clickInput(id) {
+  return document.getElementById(id).click();
+}
+
+function hasAvatar() {
+  return (
+    userStore.user &&
+    userStore.user.avatar.length >
+      (import.meta.env.VITE_BACKEND_BASE_URL + "storage/").length
+  );
+}
 </script>

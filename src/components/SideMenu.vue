@@ -8,10 +8,11 @@
       class="flex items-center cursor-pointer"
     >
       <div
-        class="w-14 h-14 bg-slate-400 rounded-full"
+        class="w-14 h-14 bg-slate-400 rounded-full flex justify-center items-center overflow-hidden"
         :class="route.name === 'profile' ? 'border border-custom-red' : ''"
       >
-        <img src="@/assets/images/default-profile-photo.png" alt="" />
+        <img v-if="hasAvatar()" :src="userStore.user.avatar" alt="" />
+        <img v-else src="@/assets/images/default-profile-photo.png" alt="" />
       </div>
 
       <div class="ml-4">
@@ -66,11 +67,24 @@ const userStore = useUserStore();
 onMounted(() => {
   axios
     .get("/me")
-    .then((res) => (userStore.user = res.data.user))
+    .then(
+      (res) => (
+        (userStore.user = res.data.user),
+        (userStore.user.avatar = res.data.avatar)
+      )
+    )
     .catch((err) => alert(err.response.data.message));
 });
 
 function hideSideMenu() {
   return document.getElementById("side-menu").classList.toggle("hidden");
+}
+
+function hasAvatar() {
+  return (
+    userStore.user &&
+    userStore.user.avatar.length >
+      (import.meta.env.VITE_BACKEND_BASE_URL + "storage/").length
+  );
 }
 </script>
