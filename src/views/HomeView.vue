@@ -1,17 +1,17 @@
 <template>
-  <div class="xl:w-1/2 m-auto pt-20 xl:pt-28">
+  <div class="m-auto pt-20 xl:w-1/2 xl:pt-28">
     <div class="flex items-center">
       <div
-        class="main flex-grow flex items-center py-8 xl:py-4 xl:bg-dark-blue rounded-xl"
+        class="main flex flex-grow items-center rounded-xl py-8 xl:bg-dark-blue xl:py-4"
       >
         <PencilSquareIcon />
         <p class="ml-3">{{ $t("main.write_new_quote") }}</p>
       </div>
 
-      <div v-if="showSearch()" class="flex items-center ml-6">
+      <div v-if="showSearch()" class="ml-6 flex items-center">
         <SearchIcon />
         <input
-          class="bg-transparent ml-3 w-28"
+          class="ml-3 w-28 bg-transparent"
           type="text"
           :placeholder="$t('main.search_by')"
         />

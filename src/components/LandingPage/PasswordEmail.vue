@@ -7,7 +7,7 @@
         {{ $t("auth.check_your_email") }}
       </TheHeading>
 
-      <p class="mb-8 font-normal text-base">
+      <p class="mb-8 text-base font-normal">
         {{ $t("auth.We_sent_password_recover_email") }}.
       </p>
 
@@ -16,7 +16,7 @@
       </a>
 
       <router-link :to="{ name: 'home' }">
-        <p class="font-normal text-base text-custom-gray mt-8 ml-3">
+        <p class="mt-8 ml-3 text-base font-normal text-custom-gray">
           {{ $t("auth.i_confirm_later") }}
         </p>
       </router-link>

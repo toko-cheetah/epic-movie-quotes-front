@@ -5,7 +5,7 @@
 
       <TheHeading class="mt-4 mb-6">{{ $t("auth.success") }}!</TheHeading>
 
-      <p class="mb-8 font-normal text-base">
+      <p class="mb-8 text-base font-normal">
         {{ $t("auth.password_changed_successfully") }}.
       </p>
 

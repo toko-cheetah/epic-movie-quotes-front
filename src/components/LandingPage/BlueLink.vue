@@ -1,5 +1,5 @@
 <template>
-  <span class="font-normal text-base underline text-custom-blue cursor-pointer">
+  <span class="cursor-pointer text-base font-normal text-custom-blue underline">
     <slot></slot>
   </span>
 </template>

@@ -1,9 +1,9 @@
 <template>
   <div
-    class="absolute xl:fixed top-0 left-0 w-full h-full flex justify-center items-center backdrop-blur-sm backdrop-brightness-50"
+    class="absolute top-0 left-0 flex h-full w-full items-center justify-center backdrop-blur-sm backdrop-brightness-50 xl:fixed"
   >
     <div
-      class="w-full min-h-full xl:w-[37.5rem] xl:min-h-0 py-[4.563rem] px-[8%] xl:py-[3.313rem] xl:px-[7.5rem] bg-custom-dark-gradient xl:bg-none xl:bg-[#222030] text-white text-center"
+      class="min-h-full w-full bg-custom-dark-gradient py-[4.563rem] px-[8%] text-center text-white xl:min-h-0 xl:w-[37.5rem] xl:bg-[#222030] xl:bg-none xl:py-[3.313rem] xl:px-[7.5rem]"
     >
       <slot></slot>
     </div>

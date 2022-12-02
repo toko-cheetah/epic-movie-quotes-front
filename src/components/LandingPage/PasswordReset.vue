@@ -1,12 +1,12 @@
 <template>
   <BaseLayout>
     <TheHeading>{{ $t("auth.create_new_password") }}</TheHeading>
-    <p class="font-normal text-base text-custom-gray">
+    <p class="text-base font-normal text-custom-gray">
       {{ $t("auth.new_password_must_be_different") }}
     </p>
 
     <Form class="mt-7 flex flex-col" @submit="submit">
-      <label name="password" class="font-normal text-base text-left mb-2">
+      <label name="password" class="mb-2 text-left text-base font-normal">
         {{ $t("auth.password") }}
         <span class="text-[#DC3545]">*</span>
       </label>
@@ -19,13 +19,13 @@
         :placeholder="$t('auth.min_max_and_lower_case', { min: 8, max: 15 })"
       />
       <ErrorMessage
-        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        class="-mt-4 -mb-1 text-left text-sm font-normal text-[#DC3545]"
         name="password"
       />
 
       <label
         name="password_confirmation"
-        class="font-normal text-base text-left mb-2"
+        class="mb-2 text-left text-base font-normal"
       >
         {{ $t("auth.password_confirmation") }}
         <span class="text-[#DC3545]">*</span>
@@ -39,7 +39,7 @@
         :placeholder="$t('auth.password_confirmation')"
       />
       <ErrorMessage
-        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        class="-mt-4 -mb-1 text-left text-sm font-normal text-[#DC3545]"
         name="password_confirmation"
       />
 
@@ -49,12 +49,12 @@
     </Form>
 
     <router-link
-      class="mt-8 flex justify-center items-center"
+      class="mt-8 flex items-center justify-center"
       :to="{ name: 'login' }"
     >
       <LeftArrowIcon />
 
-      <p class="font-normal text-base text-custom-gray ml-3">
+      <p class="ml-3 text-base font-normal text-custom-gray">
         {{ $t("auth.back_to_log_in") }}
       </p>
     </router-link>

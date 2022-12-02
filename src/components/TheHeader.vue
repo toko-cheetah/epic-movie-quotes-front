@@ -1,10 +1,10 @@
 <template>
   <header
-    class="w-screen py-6 flex justify-between items-center bg-dark-blue text-base"
+    class="flex w-screen items-center justify-between bg-dark-blue py-6 text-base"
     :class="authStore.authenticated ? 'fixed' : ''"
   >
     <SideMenuIcon v-if="showIcon()" @click="showSideMenu" />
-    <p v-else class="text-beige font-montserrat font-medium uppercase">
+    <p v-else class="font-montserrat font-medium uppercase text-beige">
       Movie quotes
     </p>
 
@@ -14,7 +14,7 @@
 
       <div class="relative">
         <select
-          class="py-[0.438rem] pl-[0.688rem] pr-[1.875rem] mx-4 appearance-none bg-transparent text-white"
+          class="mx-4 appearance-none bg-transparent py-[0.438rem] pl-[0.688rem] pr-[1.875rem] text-white"
           v-model="$i18n.locale"
           @change="setLocale($event.target.value)"
         >
@@ -22,11 +22,11 @@
           <option value="ka" :selected="$i18n.locale === 'ka'">ქარ</option>
         </select>
 
-        <DropDownIcon class="absolute top-1/2 -translate-y-1/2 right-6" />
+        <DropDownIcon class="absolute top-1/2 right-6 -translate-y-1/2" />
       </div>
 
       <router-link :to="{ name: 'sign_up' }">
-        <RedBtn class="hidden xl:block mr-4 py-2 px-6">
+        <RedBtn class="mr-4 hidden py-2 px-6 xl:block">
           {{ $t("common.sign_up") }}
         </RedBtn>
       </router-link>

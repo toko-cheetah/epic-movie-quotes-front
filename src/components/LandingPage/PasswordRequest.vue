@@ -1,12 +1,12 @@
 <template>
   <BaseLayout>
     <TheHeading>{{ $t("auth.forgot_password") }}?</TheHeading>
-    <p class="font-normal text-base text-custom-gray">
+    <p class="text-base font-normal text-custom-gray">
       {{ $t("auth.enter_email_we_send_instructions") }}
     </p>
 
     <Form class="mt-7 flex flex-col" @submit="submit">
-      <label name="email" class="font-normal text-base text-left mb-2">
+      <label name="email" class="mb-2 text-left text-base font-normal">
         {{ $t("auth.email") }}
         <span class="text-[#DC3545]">*</span>
       </label>
@@ -18,7 +18,7 @@
         :placeholder="$t('auth.enter_email')"
       />
       <ErrorMessage
-        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        class="-mt-4 -mb-1 text-left text-sm font-normal text-[#DC3545]"
         name="email"
       />
 
@@ -28,12 +28,12 @@
     </Form>
 
     <router-link
-      class="mt-8 flex justify-center items-center"
+      class="mt-8 flex items-center justify-center"
       :to="{ name: 'login' }"
     >
       <LeftArrowIcon />
 
-      <p class="font-normal text-base text-custom-gray ml-3">
+      <p class="ml-3 text-base font-normal text-custom-gray">
         {{ $t("auth.back_to_log_in") }}
       </p>
     </router-link>
