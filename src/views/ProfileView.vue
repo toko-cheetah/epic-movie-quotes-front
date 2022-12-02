@@ -1,22 +1,32 @@
 <template>
-  <div class="xl:w-1/2 m-auto pt-28">
+  <div class="m-auto pt-28 xl:w-1/2">
     <router-link :to="{ name: 'home' }">
-      <LeftArrowIcon class="xl:hidden mb-6 ml-[7.5%]" />
+      <LeftArrowIcon class="mb-6 ml-[7.5%] xl:hidden" />
     </router-link>
 
-    <p class="hidden xl:block ml-16 font-medium text-2xl">
+    <p class="ml-16 hidden text-2xl font-medium xl:block">
       {{ $t("main.my_profile") }}
     </p>
 
     <div
-      class="main xl:min-h-[33.438rem] py-6 xl:mt-32 rounded-xl bg-dark-blue"
+      class="main rounded-xl bg-dark-blue py-6 xl:mt-32 xl:min-h-[33.438rem]"
     >
-      <div class="xl:-mt-28 mb-10 text-center">
+      <div class="mb-10 text-center xl:-mt-28">
         <div
-          class="w-48 h-48 m-auto mb-2 bg-slate-400 rounded-full flex justify-center items-center overflow-hidden"
+          class="m-auto mb-2 flex h-48 w-48 items-center justify-center overflow-hidden rounded-full bg-slate-400"
         >
-          <img v-if="hasAvatar()" :src="userStore.user.avatar" alt="" />
-          <img v-else src="@/assets/images/default-profile-photo.png" alt="" />
+          <img
+            v-if="hasAvatar()"
+            :src="userStore.user.avatar"
+            alt=""
+            class="h-full w-full object-cover"
+          />
+          <img
+            v-else
+            src="@/assets/images/default-profile-photo.png"
+            alt=""
+            class="h-full w-full object-cover"
+          />
         </div>
 
         <p class="cursor-pointer" @click="clickInput('avatar')">
@@ -32,14 +42,14 @@
       </div>
 
       <div>
-        <label name="name" class="font-normal text-base text-left mb-2">
+        <label name="name" class="mb-2 text-left text-base font-normal">
           {{ $t("auth.name") }}
         </label>
         <div
-          class="flex items-center justify-between xl:justify-start mb-8 border-b border-b-custom-gray xl:border-none"
+          class="mb-8 flex items-center justify-between border-b border-b-custom-gray xl:justify-start xl:border-none"
         >
           <VeeField
-            class="w-9/12 xl:w-7/12 xl:border-b border-b-custom-gray"
+            class="w-9/12 border-b-custom-gray xl:w-7/12 xl:border-b"
             type="text"
             name="name"
           />
@@ -48,11 +58,11 @@
           </p>
         </div>
 
-        <label name="email" class="font-normal text-base text-left mb-2">
+        <label name="email" class="mb-2 text-left text-base font-normal">
           {{ $t("auth.email") }}
         </label>
         <div
-          class="relative flex items-center justify-between xl:justify-start mb-8"
+          class="relative mb-8 flex items-center justify-between xl:justify-start"
         >
           <VeeField class="w-9/12 xl:w-7/12" type="email" name="email" />
           <CheckCircleFillIcon
@@ -60,7 +70,7 @@
           />
           <p
             v-if="userStore.user && !userStore.user.google_id"
-            class="mb-4 xl:ml-8 capitalize"
+            class="mb-4 capitalize xl:ml-8"
           >
             {{ $t("main.primary") }}
           </p>
@@ -79,11 +89,11 @@
         <div v-if="userStore.user && !userStore.user.google_id">
           <label
             name="password"
-            class="font-normal text-base text-left pt-8 mb-2 block xl:w-7/12 border-t border-t-custom-gray"
+            class="mb-2 block border-t border-t-custom-gray pt-8 text-left text-base font-normal xl:w-7/12"
           >
             {{ $t("auth.password") }}
           </label>
-          <div class="flex items-center justify-between xl:justify-start mb-8">
+          <div class="mb-8 flex items-center justify-between xl:justify-start">
             <VeeField
               class="w-9/12 xl:w-7/12"
               type="password"
@@ -130,7 +140,7 @@ function sendAvatar(e) {
   formData.append("avatar", e.target.files[0]);
 
   axios
-    .post("/add-avatar", formData)
+    .post("/avatar", formData)
     .then((res) => (userStore.user.avatar = res.data.avatar))
     .catch((err) => alert(err.response.data.message));
 }

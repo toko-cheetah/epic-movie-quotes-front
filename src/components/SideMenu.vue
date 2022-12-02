@@ -1,23 +1,33 @@
 <template>
   <div
-    class="hidden xl:block absolute top-0 xl:top-28 left-0 xl:left-auto w-96 xl:w-auto h-[35rem] xl:h-auto bg-dark-blue xl:bg-transparent text-white text-xl xl:text-2xl p-10 xl:p-0"
+    class="absolute top-0 left-0 hidden h-[35rem] w-96 bg-dark-blue p-10 text-xl text-white xl:top-28 xl:left-auto xl:block xl:h-auto xl:w-auto xl:bg-transparent xl:p-0 xl:text-2xl"
   >
     <router-link
       :to="{ name: 'profile' }"
       @click="hideSideMenu"
-      class="flex items-center cursor-pointer"
+      class="flex cursor-pointer items-center"
     >
       <div
-        class="w-14 h-14 bg-slate-400 rounded-full flex justify-center items-center overflow-hidden"
+        class="flex h-14 w-14 items-center justify-center overflow-hidden rounded-full bg-slate-400"
         :class="route.name === 'profile' ? 'border border-custom-red' : ''"
       >
-        <img v-if="hasAvatar()" :src="userStore.user.avatar" alt="" />
-        <img v-else src="@/assets/images/default-profile-photo.png" alt="" />
+        <img
+          v-if="hasAvatar()"
+          :src="userStore.user.avatar"
+          alt=""
+          class="h-full w-full object-cover"
+        />
+        <img
+          v-else
+          src="@/assets/images/default-profile-photo.png"
+          alt=""
+          class="h-full w-full object-cover"
+        />
       </div>
 
       <div class="ml-4">
         <p v-if="userStore.user">{{ userStore.user.name }}</p>
-        <p class="text-sm xl:text-base text-custom-gray">
+        <p class="text-sm text-custom-gray xl:text-base">
           {{ $t("main.edit_your_profile") }}
         </p>
       </div>
@@ -26,7 +36,7 @@
     <router-link
       :to="{ name: 'home' }"
       @click="hideSideMenu"
-      class="flex items-center mt-5 cursor-pointer"
+      class="mt-5 flex cursor-pointer items-center"
     >
       <HouseIcon
         class="ml-2"
@@ -38,7 +48,7 @@
     <router-link
       to="#"
       @click="hideSideMenu"
-      class="flex items-center mt-5 cursor-pointer"
+      class="mt-5 flex cursor-pointer items-center"
     >
       <CameraReelsIcon
         class="ml-2"
@@ -47,7 +57,7 @@
       <p class="ml-8">{{ $t("main.list_of_movies") }}</p>
     </router-link>
 
-    <LeftArrowIcon class="mt-20 xl:hidden scale-150" @click="hideSideMenu" />
+    <LeftArrowIcon class="mt-20 scale-150 xl:hidden" @click="hideSideMenu" />
   </div>
 </template>
 
@@ -56,25 +66,11 @@ import HouseIcon from "@/components/icons/HouseIcon.vue";
 import CameraReelsIcon from "@/components/icons/CameraReelsIcon.vue";
 import LeftArrowIcon from "@/components/icons/LeftArrowIcon.vue";
 
-import axios from "@/config/axios/index.js";
 import { useUserStore } from "@/stores/user.js";
 import { useRoute } from "vue-router";
-import { onMounted } from "vue";
 
 const route = useRoute();
 const userStore = useUserStore();
-
-onMounted(() => {
-  axios
-    .get("/me")
-    .then(
-      (res) => (
-        (userStore.user = res.data.user),
-        (userStore.user.avatar = res.data.avatar)
-      )
-    )
-    .catch((err) => alert(err.response.data.message));
-});
 
 function hideSideMenu() {
   return document.getElementById("side-menu").classList.toggle("hidden");
