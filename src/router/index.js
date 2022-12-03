@@ -111,7 +111,6 @@ router.beforeEach(async (to, from, next) => {
       authStore.authenticated = true;
     } catch (err) {
       authStore.authenticated = false;
-      alert(err.response.data.message);
     }
   }
   return next();

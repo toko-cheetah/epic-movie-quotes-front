@@ -5,6 +5,7 @@
       :class="useFieldError(name).value ? 'border border-custom-red' : ''"
       :type="type"
       :name="name"
+      :id="name"
       :rules="rules"
       :placeholder="placeholder"
     />
