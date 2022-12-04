@@ -1,6 +1,6 @@
 <template>
   <header
-    class="flex w-screen items-center justify-between bg-dark-blue py-6 text-base"
+    class="z-50 flex w-screen items-center justify-between bg-dark-blue py-6 text-base"
     :class="authStore.authenticated ? 'fixed' : ''"
   >
     <SideMenuIcon v-if="showIcon()" @click="showSideMenu" />

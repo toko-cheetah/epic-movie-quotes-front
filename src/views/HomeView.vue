@@ -24,6 +24,24 @@
 import PencilSquareIcon from "@/components/icons/PencilSquareIcon.vue";
 import SearchIcon from "@/components/icons/SearchIcon.vue";
 
+import axios from "@/config/axios/index.js";
+import { useUserStore } from "@/stores/user.js";
+import { onMounted } from "vue";
+
+const userStore = useUserStore();
+
+onMounted(() => {
+  axios
+    .get("/me")
+    .then(
+      (res) => (
+        (userStore.user = res.data.user),
+        (userStore.user.avatar = res.data.avatar)
+      )
+    )
+    .catch((err) => alert(err.response.data.message));
+});
+
 function showSearch() {
   return screen.width >= 1280;
 }

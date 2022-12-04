@@ -11,61 +11,17 @@
     <div
       class="main rounded-xl bg-dark-blue py-6 xl:mt-32 xl:min-h-[33.438rem]"
     >
-      <div class="mb-10 text-center xl:-mt-28">
-        <div
-          class="m-auto mb-2 flex h-48 w-48 items-center justify-center overflow-hidden rounded-full bg-slate-400"
-        >
-          <img
-            v-if="hasAvatar()"
-            :src="userStore.user.avatar"
-            alt=""
-            class="h-full w-full object-cover"
-          />
-          <img
-            v-else
-            src="@/assets/images/default-profile-photo.png"
-            alt=""
-            class="h-full w-full object-cover"
-          />
-        </div>
-
-        <p class="cursor-pointer" @click="clickInput('avatar')">
-          {{ $t("main.upload_new_photo") }}
-        </p>
-        <input
-          type="file"
-          name="avatar"
-          id="avatar"
-          @change="sendAvatar"
-          hidden
-        />
-      </div>
+      <EditAvatar
+        :showUserAvatarIf="hasAvatar()"
+        :userAvatarSrc="userStore.user.avatar"
+        :sendAvatar="sendAvatar"
+      />
 
       <div>
-        <label name="name" class="mb-2 text-left text-base font-normal">
-          {{ $t("auth.name") }}
-        </label>
-        <ErrorMessage
-          class="block w-9/12 text-left text-sm font-normal text-[#DC3545] xl:w-7/12"
-          name="name"
+        <EditName
+          :showEditButtonIf="!canEdit.name"
+          :clickEditBtn="() => startEdit('name')"
         />
-        <div
-          class="mb-8 flex items-center justify-between border-b border-b-custom-gray xl:justify-start xl:border-none"
-        >
-          <VeeField
-            class="w-9/12 border-b-custom-gray xl:w-7/12 xl:border-b"
-            type="text"
-            name="name"
-            rules="required|min:3|max:15|lower_alpha_num"
-          />
-          <p
-            v-if="!canEdit.name"
-            class="mb-4 cursor-pointer xl:ml-8"
-            @click="startEdit('name')"
-          >
-            {{ $t("common.edit") }}
-          </p>
-        </div>
 
         <label name="email" class="mb-2 text-left text-base font-normal">
           {{ $t("auth.email") }}
@@ -95,43 +51,22 @@
           <PlusIcon class="absolute top-3 left-3 cursor-pointer" />
         </div>
 
-        <div v-if="userStore.user && !userStore.user.google_id">
-          <label
-            name="password"
-            class="mb-2 block border-t border-t-custom-gray pt-8 text-left text-base font-normal xl:w-7/12"
-          >
-            {{ $t("auth.password") }}
-          </label>
-          <div class="mb-8 flex items-center justify-between xl:justify-start">
-            <VeeField
-              class="w-9/12 xl:w-7/12"
-              type="password"
-              name="password"
-            />
-            <p
-              v-if="!canEdit.password"
-              class="mb-4 cursor-pointer xl:ml-8"
-              @click="startEdit('password')"
-            >
-              {{ $t("common.edit") }}
-            </p>
-          </div>
-        </div>
+        <EditPassword
+          v-if="userStore.user && !userStore.user.google_id"
+          :showEditButtonIf="!canEdit.current_password"
+          :canEditPasswordIf="canEdit.current_password"
+          :clickEditBtn="() => startEdit('current_password')"
+        />
       </div>
     </div>
 
-    <div
-      v-if="canEdit.name || canEdit.password"
-      class="flex items-center justify-end"
-    >
-      <p class="cursor-pointer" @click="cancelEdit">
-        {{ $t("common.cancel") }}
-      </p>
+    <CancelConfirmBtns
+      v-if="canEdit.name || canEdit.current_password"
+      :clickCancelBtn="() => cancelEdit()"
+      :clickConfirmBtn="() => confirmEdit()"
+    />
 
-      <RedBtn class="ml-8 cursor-pointer px-5" @click="confirmEdit">
-        {{ $t("common.confirm") }}
-      </RedBtn>
-    </div>
+    <EditedOk v-if="editedOk" :clickXIcon="() => (editedOk = false)" />
   </div>
 </template>
 
@@ -141,23 +76,29 @@ import CheckCircleFillIcon from "@/components/icons/CheckCircleFillIcon.vue";
 import LinearBtn from "@/components/buttons/LinearBtn.vue";
 import PlusIcon from "@/components/icons/PlusIcon.vue";
 import VeeField from "@/components/form/VeeField.vue";
-import RedBtn from "@/components/buttons/RedBtn.vue";
+import EditAvatar from "@/components/Profile/EditAvatar.vue";
+import EditName from "@/components/Profile/EditName.vue";
+import EditPassword from "@/components/Profile/EditPassword.vue";
+import CancelConfirmBtns from "@/components/Profile/CancelConfirmBtns.vue";
+import EditedOk from "@/components/Profile/EditedOk.vue";
+
 import axios from "@/config/axios/index.js";
 import { useUserStore } from "@/stores/user.js";
-import { ErrorMessage, useForm } from "vee-validate";
+import { useForm } from "vee-validate";
 import { onMounted, reactive, ref } from "vue";
 
 const userStore = useUserStore();
-const { setValues, resetForm, values } = useForm();
+const { setValues, values } = useForm();
+const editedOk = ref(false);
 const canEdit = reactive({
   name: false,
-  password: false,
+  current_password: false,
 });
 
 setValues({
   name: userStore.user ? userStore.user.name : null,
   email: userStore.user ? userStore.user.email : null,
-  password: "dummypass",
+  current_password: "dummypass",
 });
 
 function setReadonly() {
@@ -182,10 +123,6 @@ function sendAvatar(e) {
     .catch((err) => alert(err.response.data.message));
 }
 
-function clickInput(id) {
-  return document.getElementById(id).click();
-}
-
 function hasAvatar() {
   return (
     userStore.user &&
@@ -200,14 +137,16 @@ function startEdit(id) {
     (key) => key !== id && canEdit[key] === true && (abort.value = true)
   );
 
-  !abort.value &&
-    (document.getElementById(id).removeAttribute("readonly"),
-    (canEdit[id] = true));
+  return (
+    !abort.value &&
+    (id !== "current_password" &&
+      document.getElementById(id).removeAttribute("readonly"),
+    (canEdit[id] = true))
+  );
 }
 
 function cancelEdit() {
   setReadonly();
-  resetForm();
   Object.keys(canEdit).map((key) => (canEdit[key] = false));
 }
 
@@ -219,9 +158,34 @@ function confirmEdit() {
         () => (
           (userStore.user.name = values.name),
           setReadonly(),
-          Object.keys(canEdit).map((key) => (canEdit[key] = false))
+          Object.keys(canEdit).map((key) => (canEdit[key] = false)),
+          window.scrollTo({ top: 0, behavior: "smooth" }),
+          showEditedOk()
         )
       )
       .catch((err) => alert(err.response.data.message));
+
+  canEdit.current_password &&
+    axios
+      .put("/edit/password", {
+        password: values.password,
+        password_confirmation: values.password_confirmation,
+      })
+      .then(
+        () => (
+          setReadonly(),
+          Object.keys(canEdit).map((key) => (canEdit[key] = false)),
+          window.scrollTo({ top: 0, behavior: "smooth" }),
+          showEditedOk()
+        )
+      )
+      .catch((err) => alert(err.response.data.message));
+}
+
+function showEditedOk() {
+  editedOk.value = true;
+  setTimeout(() => {
+    editedOk.value = false;
+  }, 3000);
 }
 </script>

@@ -101,7 +101,11 @@ const loginData = reactive({
 function submit() {
   axios
     .post("/login", loginData)
-    .then(() => router.push({ name: "home" }), (authStore.authenticated = true))
+    .then((res) =>
+      res.status > 199 && res.status < 300
+        ? (router.push({ name: "home" }), (authStore.authenticated = true))
+        : alert(res.data)
+    )
     .catch((err) => alert(err.response.data));
 }
 
