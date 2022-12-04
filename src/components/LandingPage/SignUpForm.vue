@@ -1,12 +1,12 @@
 <template>
   <BaseLayout>
     <TheHeading>{{ $t("auth.create_account") }}</TheHeading>
-    <p class="font-normal text-base text-custom-gray">
+    <p class="text-base font-normal text-custom-gray">
       {{ $t("auth.start_journey") }}!
     </p>
 
     <Form class="mt-7 flex flex-col" @submit="submit">
-      <label name="name" class="font-normal text-base text-left mb-2">
+      <label name="name" class="mb-2 text-left text-base font-normal">
         {{ $t("auth.name") }}
         <span class="text-[#DC3545]">*</span>
       </label>
@@ -18,11 +18,11 @@
         :placeholder="$t('auth.min_max_and_lower_case', { min: 3, max: 15 })"
       />
       <ErrorMessage
-        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        class="-mt-4 -mb-1 text-left text-sm font-normal text-[#DC3545]"
         name="name"
       />
 
-      <label name="email" class="font-normal text-base text-left mb-2">
+      <label name="email" class="mb-2 text-left text-base font-normal">
         {{ $t("auth.email") }}
         <span class="text-[#DC3545]">*</span>
       </label>
@@ -34,11 +34,11 @@
         :placeholder="$t('auth.enter_email')"
       />
       <ErrorMessage
-        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        class="-mt-4 -mb-1 text-left text-sm font-normal text-[#DC3545]"
         name="email"
       />
 
-      <label name="password" class="font-normal text-base text-left mb-2">
+      <label name="password" class="mb-2 text-left text-base font-normal">
         {{ $t("auth.password") }}
         <span class="text-[#DC3545]">*</span>
       </label>
@@ -51,13 +51,13 @@
         :placeholder="$t('auth.min_max_and_lower_case', { min: 8, max: 15 })"
       />
       <ErrorMessage
-        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        class="-mt-4 -mb-1 text-left text-sm font-normal text-[#DC3545]"
         name="password"
       />
 
       <label
         name="password_confirmation"
-        class="font-normal text-base text-left mb-2"
+        class="mb-2 text-left text-base font-normal"
       >
         {{ $t("auth.password_confirmation") }}
         <span class="text-[#DC3545]">*</span>
@@ -71,7 +71,7 @@
         :placeholder="$t('auth.password_confirmation')"
       />
       <ErrorMessage
-        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        class="-mt-4 -mb-1 text-left text-sm font-normal text-[#DC3545]"
         name="password_confirmation"
       />
 
@@ -88,7 +88,7 @@
     </LinearBtn>
 
     <div class="mt-8 flex justify-center">
-      <p class="font-normal text-base text-custom-gray">
+      <p class="text-base font-normal text-custom-gray">
         {{ $t("auth.already_have_an_account") }}? &nbsp;
       </p>
 

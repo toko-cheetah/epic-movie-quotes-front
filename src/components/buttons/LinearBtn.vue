@@ -1,6 +1,6 @@
 <template>
   <button
-    class="border border-white rounded-[0.25rem] text-white py-[0.438rem] px-5 xl:px-6 font-normal text-base"
+    class="rounded-[0.25rem] border border-white py-[0.438rem] px-5 text-base font-normal text-white xl:px-6"
   >
     <slot></slot>
   </button>

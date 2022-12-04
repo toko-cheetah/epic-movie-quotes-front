@@ -5,7 +5,7 @@
 
       <TheHeading class="mt-4 mb-6">{{ $t("auth.thank_you") }}!</TheHeading>
 
-      <p class="mb-8 font-normal text-base">
+      <p class="mb-8 text-base font-normal">
         {{ $t("auth.account_activated") }}.
       </p>
 

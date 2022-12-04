@@ -16,6 +16,7 @@ import ProfileView from "@/views/ProfileView.vue";
 import isAuthenticated from "@/router/guards.js";
 import axios from "axios";
 import { useAuthStore } from "@/stores/auth.js";
+import { useUserStore } from "@/stores/user.js";
 
 axios.defaults.withCredentials = true;
 
@@ -95,10 +96,18 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
+  const userStore = useUserStore();
 
   if (authStore.authenticated === null) {
     try {
-      await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}api/me`);
+      await axios
+        .get(`${import.meta.env.VITE_BACKEND_BASE_URL}api/me`)
+        .then(
+          (res) => (
+            (userStore.user = res.data.user),
+            (userStore.user.avatar = res.data.avatar)
+          )
+        );
       authStore.authenticated = true;
     } catch (err) {
       authStore.authenticated = false;

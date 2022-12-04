@@ -1,12 +1,12 @@
 <template>
   <BaseLayout>
     <TheHeading>{{ $t("auth.log_in_to_your_account") }}</TheHeading>
-    <p class="font-normal text-base text-custom-gray">
+    <p class="text-base font-normal text-custom-gray">
       {{ $t("auth.welcome_please_enter_details") }}.
     </p>
 
     <Form class="mt-7 flex flex-col" @submit="submit">
-      <label name="name" class="font-normal text-base text-left mb-2">
+      <label name="name" class="mb-2 text-left text-base font-normal">
         {{ $t("auth.name") }} / {{ $t("auth.email") }}
         <span class="text-[#DC3545]">*</span>
       </label>
@@ -18,11 +18,11 @@
         :placeholder="$t('auth.name') + ' / ' + $t('auth.email')"
       />
       <ErrorMessage
-        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        class="-mt-4 -mb-1 text-left text-sm font-normal text-[#DC3545]"
         name="name"
       />
 
-      <label name="password" class="font-normal text-base text-left mb-2">
+      <label name="password" class="mb-2 text-left text-base font-normal">
         {{ $t("auth.password") }}
         <span class="text-[#DC3545]">*</span>
       </label>
@@ -35,12 +35,12 @@
         :placeholder="$t('auth.password')"
       />
       <ErrorMessage
-        class="font-normal text-sm text-[#DC3545] text-left -mt-4 -mb-1"
+        class="-mt-4 -mb-1 text-left text-sm font-normal text-[#DC3545]"
         name="password"
       />
 
       <div class="flex justify-between">
-        <label name="remember" class="font-normal text-base text-left mb-2">
+        <label name="remember" class="mb-2 text-left text-base font-normal">
           <input
             type="checkbox"
             name="remember"
@@ -60,11 +60,11 @@
     <LinearBtn class="relative w-full" @click="authGoogleRedirect">
       {{ $t("auth.log_in_with_Google") }}
 
-      <GoogleIcon class="absolute top-1/2 -translate-y-1/2 left-20" />
+      <GoogleIcon class="absolute top-1/2 left-20 -translate-y-1/2" />
     </LinearBtn>
 
     <div class="mt-8 flex justify-center">
-      <p class="font-normal text-base text-custom-gray">
+      <p class="text-base font-normal text-custom-gray">
         {{ $t("auth.dont_have_an_account") }}? &nbsp;
       </p>
 
@@ -101,7 +101,11 @@ const loginData = reactive({
 function submit() {
   axios
     .post("/login", loginData)
-    .then(() => router.push({ name: "home" }), (authStore.authenticated = true))
+    .then((res) =>
+      res.status > 199 && res.status < 300
+        ? (router.push({ name: "home" }), (authStore.authenticated = true))
+        : alert(res.data)
+    )
     .catch((err) => alert(err.response.data));
 }
 

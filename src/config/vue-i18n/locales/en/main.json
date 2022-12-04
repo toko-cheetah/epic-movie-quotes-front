@@ -19,5 +19,7 @@
   "new_password_updated_successfully": "New password updated successfully",
   "passwords_should_contain": "Passwords should contain",
   "min_or_more_characters": "{min} or more characters",
-  "num_lowercase_character": "{num} lowercase character"
+  "num_lowercase_character": "{num} lowercase character",
+  "new_password": "New password",
+  "confirm_new_password": "Confirm new password"
 }

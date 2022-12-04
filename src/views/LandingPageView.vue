@@ -1,16 +1,16 @@
 <template>
   <div>
     <div
-      class="main h-[26.875rem] xl:h-[75vh] bg-gradient-to-b from-[#11101A] to-[#08080D] text-beige flex flex-col items-center justify-center"
+      class="main flex h-[26.875rem] flex-col items-center justify-center bg-gradient-to-b from-[#11101A] to-[#08080D] text-beige xl:h-[75vh]"
     >
       <p
-        class="w-[17.563rem] xl:w-[43.938rem] text-2xl xl:text-6xl xl:leading-normal mb-6 text-center font-bold"
+        class="mb-6 w-[17.563rem] text-center text-2xl font-bold xl:w-[43.938rem] xl:text-6xl xl:leading-normal"
       >
         {{ $t("landing_page.find_any_quote") }}
       </p>
 
       <router-link :to="{ name: 'sign_up' }">
-        <RedBtn class="xl:py-[0.563rem] px-[0.813rem] xl:px-[1.063] xl:text-xl">
+        <RedBtn class="px-[0.813rem] xl:py-[0.563rem] xl:px-[1.063] xl:text-xl">
           {{ $t("landing_page.get_started") }}
         </RedBtn>
       </router-link>

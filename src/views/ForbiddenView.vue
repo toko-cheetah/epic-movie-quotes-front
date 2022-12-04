@@ -1,12 +1,12 @@
 <template>
   <div
-    class="w-screen h-screen px-[8%] flex flex-col justify-center items-center text-center bg-custom-dark-gradient text-white"
+    class="flex h-screen w-screen flex-col items-center justify-center bg-custom-dark-gradient px-[8%] text-center text-white"
   >
     <GandolfIcon />
 
     <TheHeading>{{ $t("error.you_shall_not_pass") }}!</TheHeading>
 
-    <p class="mb-8 font-normal text-base">
+    <p class="mb-8 text-base font-normal">
       {{ $t("error.you_dont_have_permission") }}
     </p>
 

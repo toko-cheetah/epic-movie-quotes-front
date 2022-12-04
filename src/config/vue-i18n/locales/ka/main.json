@@ -19,5 +19,7 @@
   "new_password_updated_successfully": "ახალი პაროლი წარმატებით განახლდა",
   "passwords_should_contain": "პაროლი უნდა შეიცავდეს",
   "min_or_more_characters": "{min} ან მეტ სიმბოლოს",
-  "num_lowercase_character": "{num} დაბალი რეგისტრის ასოს"
+  "num_lowercase_character": "{num} დაბალი რეგისტრის ასოს",
+  "new_password": "ახალი პაროლი",
+  "confirm_new_password": "გაიმეორე ახალი პაროლი"
 }
