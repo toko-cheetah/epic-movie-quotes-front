@@ -6,6 +6,7 @@
       :type="type"
       :name="name"
       :id="name"
+      :value="value"
       :rules="rules"
       :placeholder="placeholder"
     />
@@ -35,6 +36,10 @@ defineProps({
   name: {
     type: String,
     required: true,
+  },
+  value: {
+    type: String,
+    required: false,
   },
   rules: {
     type: [String, Object],

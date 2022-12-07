@@ -4,15 +4,15 @@
       class="m-auto mb-2 flex h-48 w-48 items-center justify-center overflow-hidden rounded-full bg-slate-400"
     >
       <img
-        v-if="showUserAvatarIf"
-        :src="userAvatarSrc"
-        alt=""
+        v-if="hasAvatar()"
+        :src="userStore.user.avatar"
+        alt="User avatar"
         class="h-full w-full object-cover"
       />
       <img
         v-else
         src="@/assets/images/default-profile-photo.png"
-        alt=""
+        alt="Default avatar"
         class="h-full w-full object-cover"
       />
     </div>
@@ -25,22 +25,30 @@
 </template>
 
 <script setup>
-defineProps({
-  showUserAvatarIf: {
-    type: Boolean,
-    required: true,
-  },
-  userAvatarSrc: {
-    type: String,
-    required: true,
-  },
-  sendAvatar: {
-    type: Function,
-    required: true,
-  },
-});
+import axios from "@/config/axios/index.js";
+import { useUserStore } from "@/stores/user.js";
+
+const userStore = useUserStore();
 
 function clickInput(id) {
   return document.getElementById(id).click();
+}
+
+function sendAvatar(e) {
+  const formData = new FormData();
+  formData.append("avatar", e.target.files[0]);
+
+  axios
+    .post("/avatar", formData)
+    .then((res) => (userStore.user.avatar = res.data.avatar))
+    .catch((err) => alert(err.response.data.message));
+}
+
+function hasAvatar() {
+  return (
+    userStore.user &&
+    userStore.user.avatar.length >
+      (import.meta.env.VITE_BACKEND_BASE_URL + "storage/").length
+  );
 }
 </script>

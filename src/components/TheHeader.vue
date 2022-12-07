@@ -25,7 +25,7 @@
         <DropDownIcon class="absolute top-1/2 right-6 -translate-y-1/2" />
       </div>
 
-      <router-link :to="{ name: 'sign_up' }">
+      <router-link :to="{ name: 'sign_up' }" v-if="!authStore.authenticated">
         <RedBtn class="mr-4 hidden py-2 px-6 xl:block">
           {{ $t("common.sign_up") }}
         </RedBtn>

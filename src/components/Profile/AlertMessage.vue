@@ -4,7 +4,7 @@
   >
     <div class="flex items-center gap-2">
       <CheckCircleFillIcon />
-      <p>{{ $t("main.changes_updated_successfully") }}</p>
+      <p>{{ message }}</p>
     </div>
 
     <XIcon class="cursor-pointer opacity-50" @click="clickXIcon" />
@@ -16,6 +16,10 @@ import CheckCircleFillIcon from "@/components/icons/CheckCircleFillIcon.vue";
 import XIcon from "@/components/icons/XIcon.vue";
 
 defineProps({
+  message: {
+    type: String,
+    required: true,
+  },
   clickXIcon: {
     type: Function,
     required: true,
