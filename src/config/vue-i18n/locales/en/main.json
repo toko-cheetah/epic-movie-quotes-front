@@ -12,6 +12,7 @@
   "make_this": "Make this",
   "add_new_email": "Add new email",
   "new_email_added_successfully": "New email Added successfully",
+  "new_email_verified_successfully": "New email verified successfully",
   "please_check_email_to_verify": "Please check email to verify new address",
   "not_verified": "Not verified",
   "primary_email_changed_successfully": "Primary email changed successfully",
@@ -21,5 +22,7 @@
   "min_or_more_characters": "{min} or more characters",
   "num_lowercase_character": "{num} lowercase character",
   "new_password": "New password",
-  "confirm_new_password": "Confirm new password"
+  "confirm_new_password": "Confirm new password",
+  "new_email": "New Email",
+  "enter_new_email": "Enter new email"
 }

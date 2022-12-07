@@ -13,6 +13,7 @@ configure({
       },
       names: {
         password_confirmation: "confirm password",
+        new_email: "new email",
       },
     },
     ka: {
@@ -27,6 +28,7 @@ configure({
         email: "ელ-ფოსტა",
         password: "პაროლი",
         password_confirmation: "პაროლის გამეორება",
+        new_email: "ახალი ელ-ფოსტა",
       },
     },
   }),

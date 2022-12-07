@@ -12,6 +12,9 @@ import PasswordReset from "@/components/LandingPage/PasswordReset.vue";
 import PasswordUpdate from "@/components/LandingPage/PasswordUpdate.vue";
 import ForbiddenView from "@/views/ForbiddenView.vue";
 import ProfileView from "@/views/ProfileView.vue";
+import NewEmailAdd from "@/components/Profile/NewEmailAdd.vue";
+import NewEmailCheck from "@/components/Profile/NewEmailCheck.vue";
+import NewEmailVerify from "@/components/Profile/NewEmailVerify.vue";
 
 import isAuthenticated from "@/router/guards.js";
 import axios from "axios";
@@ -85,6 +88,23 @@ const router = createRouter({
       path: "/profile",
       name: "profile",
       component: ProfileView,
+      children: [
+        {
+          path: "new-email",
+          name: "new_email",
+          component: NewEmailAdd,
+        },
+        {
+          path: "new-email/check",
+          name: "new_email.check",
+          component: NewEmailCheck,
+        },
+        {
+          path: "new-email/verify",
+          name: "new_email.verify",
+          component: NewEmailVerify,
+        },
+      ],
     },
     {
       path: "/401",

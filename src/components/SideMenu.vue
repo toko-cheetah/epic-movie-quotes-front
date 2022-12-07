@@ -14,13 +14,13 @@
         <img
           v-if="hasAvatar()"
           :src="userStore.user.avatar"
-          alt=""
+          alt="User avatar"
           class="h-full w-full object-cover"
         />
         <img
           v-else
           src="@/assets/images/default-profile-photo.png"
-          alt=""
+          alt="Default avatar"
           class="h-full w-full object-cover"
         />
       </div>

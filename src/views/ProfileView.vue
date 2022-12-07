@@ -1,5 +1,5 @@
 <template>
-  <div class="m-auto pt-28 pb-10 xl:w-1/2">
+  <div class="m-auto pt-28 pb-10 xl:w-1/2" :key="userStore.componentKey">
     <router-link :to="{ name: 'home' }">
       <LeftArrowIcon class="mb-6 ml-[7.5%] xl:hidden" />
     </router-link>
@@ -11,11 +11,7 @@
     <div
       class="main rounded-xl bg-dark-blue py-6 xl:mt-32 xl:min-h-[33.438rem]"
     >
-      <EditAvatar
-        :showUserAvatarIf="hasAvatar()"
-        :userAvatarSrc="userStore.user.avatar"
-        :sendAvatar="sendAvatar"
-      />
+      <EditAvatar />
 
       <div>
         <EditName
@@ -41,15 +37,18 @@
           </p>
         </div>
 
-        <div
+        <router-link
+          :to="{ name: 'new_email' }"
           v-if="userStore.user && !userStore.user.google_id"
-          class="relative mb-8"
+          class="relative mb-8 block w-fit"
         >
           <LinearBtn class="pl-9 xl:pl-9">
             {{ $t("main.add_new_email") }}
           </LinearBtn>
           <PlusIcon class="absolute top-3 left-3 cursor-pointer" />
-        </div>
+        </router-link>
+
+        <SecondaryEmails />
 
         <EditPassword
           v-if="userStore.user && !userStore.user.google_id"
@@ -66,7 +65,13 @@
       :clickConfirmBtn="() => confirmEdit()"
     />
 
-    <EditedOk v-if="editedOk" :clickXIcon="() => (editedOk = false)" />
+    <AlertMessage
+      v-if="editedOk"
+      :message="$t('main.changes_updated_successfully')"
+      :clickXIcon="() => (editedOk = false)"
+    />
+
+    <router-view></router-view>
   </div>
 </template>
 
@@ -80,7 +85,8 @@ import EditAvatar from "@/components/Profile/EditAvatar.vue";
 import EditName from "@/components/Profile/EditName.vue";
 import EditPassword from "@/components/Profile/EditPassword.vue";
 import CancelConfirmBtns from "@/components/Profile/CancelConfirmBtns.vue";
-import EditedOk from "@/components/Profile/EditedOk.vue";
+import AlertMessage from "@/components/Profile/AlertMessage.vue";
+import SecondaryEmails from "@/components/Profile/SecondaryEmails.vue";
 
 import axios from "@/config/axios/index.js";
 import { useUserStore } from "@/stores/user.js";
@@ -105,31 +111,29 @@ function setReadonly() {
   document
     .querySelectorAll(".readonly")
     .forEach(
-      (el) => !el.hasAttribute("readonly") && el.setAttribute("readonly", true)
+      (el) =>
+        !el.hasAttribute("readonly") &&
+        el.id !== "new_email" &&
+        el.setAttribute("readonly", true)
     );
 }
 
 onMounted(() => {
   setReadonly();
+
+  document
+    .getElementById("email")
+    .classList.remove("bg-[#CED4DA]", "text-dark-cyan-blue");
+  document
+    .getElementById("email")
+    .classList.add(
+      "border",
+      "border-[#198754]",
+      "bg-[#198754]",
+      "bg-opacity-20",
+      "text-white"
+    );
 });
-
-function sendAvatar(e) {
-  const formData = new FormData();
-  formData.append("avatar", e.target.files[0]);
-
-  axios
-    .post("/avatar", formData)
-    .then((res) => (userStore.user.avatar = res.data.avatar))
-    .catch((err) => alert(err.response.data.message));
-}
-
-function hasAvatar() {
-  return (
-    userStore.user &&
-    userStore.user.avatar.length >
-      (import.meta.env.VITE_BACKEND_BASE_URL + "storage/").length
-  );
-}
 
 function startEdit(id) {
   const abort = ref(false);
@@ -153,7 +157,7 @@ function cancelEdit() {
 function confirmEdit() {
   canEdit.name &&
     axios
-      .put("/edit/name", { name: values.name })
+      .put("/name", { name: values.name })
       .then(
         () => (
           (userStore.user.name = values.name),
@@ -167,7 +171,7 @@ function confirmEdit() {
 
   canEdit.current_password &&
     axios
-      .put("/edit/password", {
+      .put("/password", {
         password: values.password,
         password_confirmation: values.password_confirmation,
       })
