@@ -46,7 +46,7 @@
     </router-link>
 
     <router-link
-      to="#"
+      :to="{ name: 'movie_list' }"
       @click="hideSideMenu"
       class="mt-5 flex cursor-pointer items-center"
     >

@@ -15,6 +15,8 @@ import ProfileView from "@/views/ProfileView.vue";
 import NewEmailAdd from "@/components/Profile/NewEmailAdd.vue";
 import NewEmailCheck from "@/components/Profile/NewEmailCheck.vue";
 import NewEmailVerify from "@/components/Profile/NewEmailVerify.vue";
+import MovieListView from "@/views/MovieListView.vue";
+import MovieAdd from "@/components/MovieList/MovieAdd.vue";
 
 import isAuthenticated from "@/router/guards.js";
 import axios from "axios";
@@ -103,6 +105,18 @@ const router = createRouter({
           path: "new-email/verify",
           name: "new_email.verify",
           component: NewEmailVerify,
+        },
+      ],
+    },
+    {
+      path: "/movie-list",
+      name: "movie_list",
+      component: MovieListView,
+      children: [
+        {
+          path: " ",
+          name: "movie.add",
+          component: MovieAdd,
         },
       ],
     },

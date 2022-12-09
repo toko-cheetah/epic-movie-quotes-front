@@ -24,5 +24,12 @@
   "new_password": "New password",
   "confirm_new_password": "Confirm new password",
   "new_email": "New Email",
-  "enter_new_email": "Enter new email"
+  "enter_new_email": "Enter new email",
+  "my_list_of_movies": "My list of movies",
+  "add_movie": "Add Movie",
+  "genre": "Genre",
+  "budget": "Budget",
+  "release_year": "Release year",
+  "drag_drop_image_here_or": "Drag & drop your image here or",
+  "choose_file": "Choose file"
 }

@@ -24,5 +24,12 @@
   "new_password": "ახალი პაროლი",
   "confirm_new_password": "გაიმეორე ახალი პაროლი",
   "new_email": "ახალი ელ-ფოსტა",
-  "enter_new_email": "შეიყვანე ახალი ელ-ფოსტა"
+  "enter_new_email": "შეიყვანე ახალი ელ-ფოსტა",
+  "my_list_of_movies": "ჩემი ფილმების სია",
+  "add_movie": "დაამატე ფილმი",
+  "genre": "ჟანრი",
+  "budget": "შემოსავალი",
+  "release_year": "გამოსვლის წელი",
+  "drag_drop_image_here_or": "ჩააგდე სურათი აქ ან",
+  "choose_file": "ატვირთე ფაილი"
 }
