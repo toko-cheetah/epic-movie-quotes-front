@@ -1,9 +1,17 @@
 import { defineRule } from "vee-validate";
-import { required, min, max, confirmed, email } from "@vee-validate/rules";
+import {
+  required,
+  min,
+  max,
+  between,
+  confirmed,
+  email,
+} from "@vee-validate/rules";
 
 defineRule("required", required);
 defineRule("min", min);
 defineRule("max", max);
+defineRule("between", between);
 defineRule("confirmed", confirmed);
 defineRule("email", email);
 defineRule("lower_alpha_num", (value) => {

@@ -7,13 +7,13 @@
       <p>{{ message }}</p>
     </div>
 
-    <XIcon class="cursor-pointer opacity-50" @click="clickXIcon" />
+    <XBlackIcon class="cursor-pointer opacity-50" @click="clickXIcon" />
   </div>
 </template>
 
 <script setup>
 import CheckCircleFillIcon from "@/components/icons/CheckCircleFillIcon.vue";
-import XIcon from "@/components/icons/XIcon.vue";
+import XBlackIcon from "@/components/icons/XBlackIcon.vue";
 
 defineProps({
   message: {
