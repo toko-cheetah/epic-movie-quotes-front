@@ -3,10 +3,10 @@
     <template #header>
       <div class="relative">
         <p class="text-xl font-medium xl:text-2xl">
-          {{ $t("main.add_movie") }}
+          {{ $t("main.edit_movie") }}
         </p>
 
-        <router-link :to="{ name: 'movie_list' }">
+        <router-link :to="{ name: 'movie.get', query: { id: route.query.id } }">
           <XWhiteIcon
             class="absolute top-1/2 right-0 -translate-y-1/2 cursor-pointer"
           />
@@ -25,6 +25,7 @@
               type="text"
               name="name_en"
               id="name_en"
+              :value="movieStore.movie && movieStore.movie.movie.name.en"
               rules="required|alpha_num_spaces"
               placeholder="Movie name"
             />
@@ -38,6 +39,7 @@
               type="text"
               name="name_ka"
               id="name_ka"
+              :value="movieStore.movie && movieStore.movie.movie.name.ka"
               rules="required|geo_num_spaces"
               placeholder="ფილმის სახელი"
             />
@@ -61,11 +63,9 @@
                   :id="'genre' + index"
                   :value="genre"
                   @click="addToGenreArray"
-                  rules="required"
                 />{{ genre }}
               </li>
             </ul>
-            <ErrorMessage name="genre" class="text-sm text-[#DC3545]" />
           </div>
 
           <div class="relative mb-5">
@@ -74,6 +74,7 @@
               type="text"
               name="director_en"
               id="director_en"
+              :value="movieStore.movie && movieStore.movie.movie.director.en"
               rules="required|alpha_num_spaces"
               placeholder="Director"
             />
@@ -87,6 +88,7 @@
               type="text"
               name="director_ka"
               id="director_ka"
+              :value="movieStore.movie && movieStore.movie.movie.director.ka"
               rules="required|geo_num_spaces"
               placeholder="რეჟისორი"
             />
@@ -100,6 +102,7 @@
               type="number"
               name="budget"
               id="budget"
+              :value="movieStore.movie && movieStore.movie.movie.budget"
               rules="required"
               :placeholder="$t('main.budget')"
             />
@@ -115,6 +118,7 @@
               max="2099"
               name="release_year"
               id="release_year"
+              :value="movieStore.movie && movieStore.movie.movie.release_year"
               rules="required|between:1800,2099"
               :placeholder="$t('main.release_year')"
             />
@@ -127,6 +131,7 @@
               as="textarea"
               name="description_en"
               id="description_en"
+              :value="movieStore.movie && movieStore.movie.movie.description.en"
               rules="required"
               placeholder="Movie description"
             />
@@ -143,6 +148,7 @@
               as="textarea"
               name="description_ka"
               id="description_ka"
+              :value="movieStore.movie && movieStore.movie.movie.description.ka"
               rules="required"
               placeholder="ფილმის აღწერა"
             />
@@ -176,14 +182,12 @@
               id="poster"
               v-model="fileInputValue"
               @input="fileName = $event.target.files[0].name"
-              rules="required"
               hidden
             />
-            <p class="text-sm">{{ fileName }}</p>
-            <ErrorMessage name="poster" class="text-sm text-[#DC3545]" />
+            <p class="break-words text-sm">{{ fileName }}</p>
           </div>
 
-          <RedBtn class="w-full">{{ $t("main.add_movie") }}</RedBtn>
+          <RedBtn class="w-full">{{ $t("main.edit_movie") }}</RedBtn>
         </Form>
       </div>
     </template>
@@ -201,12 +205,13 @@ import axios from "@/config/axios/index.js";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref } from "vue";
 import { useMovieStore } from "@/stores/movie.js";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const movieStore = useMovieStore();
+const route = useRoute();
 const router = useRouter();
 
-const fileName = ref(null);
+const fileName = ref(movieStore.movie ? movieStore.movie.movie.poster : null);
 const fileInputValue = ref(null);
 const genreArray = ref([]);
 
@@ -234,12 +239,11 @@ function submit() {
   formData.set("genre", genreArray.value);
 
   axios
-    .post("/movies", formData)
+    .put("/movies/" + route.query.id, formData)
     .then(
-      (res) => (
-        movieStore.movies.movies.unshift(res.data.movie),
-        movieStore.movies.genres.unshift(res.data.genre),
-        router.push({ name: "movie_list" })
+      () => (
+        movieStore.incrementKey(),
+        router.push({ name: "movie.get", query: { id: route.query.id } })
       )
     )
     .catch((err) => alert(err));

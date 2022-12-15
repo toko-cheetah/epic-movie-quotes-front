@@ -27,9 +27,15 @@
   "enter_new_email": "Enter new email",
   "my_list_of_movies": "My list of movies",
   "add_movie": "Add Movie",
+  "edit_movie": "Edit Movie",
   "genre": "Genre",
   "budget": "Budget",
   "release_year": "Release year",
   "drag_drop_image_here_or": "Drag & drop your image here or",
-  "choose_file": "Choose file"
+  "choose_file": "Choose file",
+  "no_photo": "No Photo",
+  "movie_discription": "Movie description",
+  "quotes": "Quotes",
+  "add_quote": "Add quote",
+  "director": "Director"
 }
