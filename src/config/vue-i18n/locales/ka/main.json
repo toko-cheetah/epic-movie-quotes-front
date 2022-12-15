@@ -27,9 +27,15 @@
   "enter_new_email": "შეიყვანე ახალი ელ-ფოსტა",
   "my_list_of_movies": "ჩემი ფილმების სია",
   "add_movie": "დაამატე ფილმი",
+  "edit_movie": "ფილმის რედაქტირება",
   "genre": "ჟანრი",
   "budget": "შემოსავალი",
   "release_year": "გამოსვლის წელი",
   "drag_drop_image_here_or": "ჩააგდე სურათი აქ ან",
-  "choose_file": "ატვირთე ფაილი"
+  "choose_file": "ატვირთე ფაილი",
+  "no_photo": "სურათის გარეშე",
+  "movie_discription": "ფილმის აღწერა",
+  "quotes": "ციტატა",
+  "add_quote": "დაამატე ციტატა",
+  "director": "რეჟისორი"
 }

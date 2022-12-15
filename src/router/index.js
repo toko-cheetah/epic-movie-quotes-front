@@ -17,8 +17,10 @@ import NewEmailCheck from "@/components/Profile/NewEmailCheck.vue";
 import NewEmailVerify from "@/components/Profile/NewEmailVerify.vue";
 import MovieListView from "@/views/MovieListView.vue";
 import MovieAdd from "@/components/MovieList/MovieAdd.vue";
+import MovieGetView from "@/views/MovieGetView.vue";
+import MovieEdit from "@/components/MovieGet/MovieEdit.vue";
 
-import isAuthenticated from "@/router/guards.js";
+import { isAuthenticated, redirectToLandingPage } from "@/router/guards.js";
 import axios from "axios";
 import { useAuthStore } from "@/stores/auth.js";
 import { useUserStore } from "@/stores/user.js";
@@ -32,7 +34,7 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
-      beforeEnter: isAuthenticated,
+      beforeEnter: redirectToLandingPage,
     },
     {
       path: "/",
@@ -90,6 +92,7 @@ const router = createRouter({
       path: "/profile",
       name: "profile",
       component: ProfileView,
+      beforeEnter: isAuthenticated,
       children: [
         {
           path: "new-email",
@@ -112,11 +115,25 @@ const router = createRouter({
       path: "/movie-list",
       name: "movie_list",
       component: MovieListView,
+      beforeEnter: isAuthenticated,
       children: [
         {
           path: " ",
           name: "movie.add",
           component: MovieAdd,
+        },
+      ],
+    },
+    {
+      path: "/movie",
+      name: "movie.get",
+      component: MovieGetView,
+      beforeEnter: isAuthenticated,
+      children: [
+        {
+          path: " ",
+          name: "movie.edit",
+          component: MovieEdit,
         },
       ],
     },

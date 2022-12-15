@@ -1,9 +1,9 @@
 <template>
   <div
-    class="absolute top-0 left-0 flex h-full w-full items-start justify-center backdrop-blur-sm backdrop-brightness-50 xl:fixed"
+    class="fixed top-0 left-0 flex h-full w-full items-start justify-center backdrop-blur-sm backdrop-brightness-50"
   >
     <div
-      class="min-h-full w-full overflow-scroll bg-custom-dark-gradient p-8 text-center text-white xl:mt-20 xl:max-h-[85%] xl:min-h-0 xl:w-[60rem] xl:rounded-xl"
+      class="h-full w-full overflow-scroll bg-custom-dark-gradient p-8 text-center text-white xl:mt-20 xl:max-h-[85%] xl:min-h-0 xl:w-[60rem] xl:rounded-xl"
     >
       <slot name="header"></slot>
 

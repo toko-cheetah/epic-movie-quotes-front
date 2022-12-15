@@ -23,3 +23,21 @@ defineRule("lower_alpha_num", (value) => {
   }
   return true;
 });
+defineRule("alpha_num_spaces", (value) => {
+  if (!value || !value.length) {
+    return true;
+  }
+  if (!/^[A-Za-z0-9\s]*$/.test(value)) {
+    return false;
+  }
+  return true;
+});
+defineRule("geo_num_spaces", (value) => {
+  if (!value || !value.length) {
+    return true;
+  }
+  if (!/^[აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ0-9\s]*$/.test(value)) {
+    return false;
+  }
+  return true;
+});
