@@ -237,14 +237,13 @@ function submit() {
   const formData = new FormData(document.getElementById("form"));
   formData.set("poster", document.getElementById("poster").files[0]);
   formData.set("genre", genreArray.value);
+  formData.append("_method", "PUT");
 
   axios
-    .put("/movies/" + route.query.id, formData)
+    .post("/movies/" + route.query.id, formData)
     .then(
-      () => (
-        movieStore.incrementKey(),
-        router.push({ name: "movie.get", query: { id: route.query.id } })
-      )
+      () => movieStore.incrementKey(),
+      router.push({ name: "movie.get", query: { id: route.query.id } })
     )
     .catch((err) => alert(err));
 }

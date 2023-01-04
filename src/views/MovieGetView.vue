@@ -62,7 +62,7 @@
           {{ $t("main.budget") }}:&emsp;
 
           <span class="text-white">
-            {{ movieStore.movie.movie.budget }}
+            {{ movieStore.movie.movie.budget.toLocaleString() }}
           </span>
         </p>
 
